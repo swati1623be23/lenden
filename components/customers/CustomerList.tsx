@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { buildReminderMessage, buildWhatsAppReminderUrl } from "@/lib/whatsapp";
@@ -95,6 +94,10 @@ export default function CustomerList({ customers }: CustomerListProps) {
     }
   }
 
+  function handleEditCustomer(id: string) {
+    router.push(`/customers/${id}/edit`);
+  }
+
   function handleWhatsAppReminder(customer: CustomerListItem) {
     if (!customer.phone) {
       toast.error("Phone number not available for this customer.");
@@ -166,12 +169,13 @@ export default function CustomerList({ customers }: CustomerListProps) {
               >
                 WhatsApp
               </button>
-              <Link
-                href={`/customers/${customer.id}/edit`}
+              <button
+                type="button"
+                onClick={() => handleEditCustomer(customer.id)}
                 className="rounded-2xl border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-emerald-400 hover:text-white"
               >
                 Edit
-              </Link>
+              </button>
               <button
                 type="button"
                 onClick={() => handleDelete(customer.id)}

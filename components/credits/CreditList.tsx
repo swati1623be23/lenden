@@ -59,6 +59,10 @@ export default function CreditList({ credits }: CreditListProps) {
     }
   }
 
+  function handleEditCredit(id: string) {
+    router.push(`/credits/${id}/edit`);
+  }
+
   if (credits.length === 0) {
     return <p className="mt-8 text-sm text-slate-400">No credits recorded yet. Add a credit for a customer.</p>;
   }
@@ -97,12 +101,13 @@ export default function CreditList({ credits }: CreditListProps) {
             </div>
             <div>{credit.note || "—"}</div>
             <div className="flex items-center justify-end gap-2">
-              <Link
-                href={`/credits/${credit.id}/edit`}
+              <button
+                type="button"
+                onClick={() => handleEditCredit(credit.id)}
                 className="rounded-2xl border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-emerald-400 hover:text-white"
               >
                 Edit
-              </Link>
+              </button>
               <button
                 type="button"
                 onClick={() => handleDelete(credit.id)}

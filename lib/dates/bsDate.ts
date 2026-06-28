@@ -31,30 +31,38 @@ function toIsoDate(date: Date) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-function parseIsoDate(value: string): Date | null {
+function parseAdValue(value: string | Date): Date | null {
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? null : new Date(value.getFullYear(), value.getMonth(), value.getDate());
+  }
+
   if (!value) return null;
-  const parts = value.split("-");
+
+  const datePart = value.trim().slice(0, 10);
+  const parts = datePart.split("-");
   if (parts.length !== 3) return null;
+
   const [year, month, day] = parts.map(Number);
   if ([year, month, day].some((n) => Number.isNaN(n))) return null;
+
   const date = new Date(year, month - 1, day);
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
 export function adToBs(value: string | Date): BsDate | null {
   try {
-    const date = typeof value === "string" ? parseIsoDate(value) : value;
+    const date = parseAdValue(value);
     if (!date) return null;
 
     const nepaliDate = NepaliDate.fromAD(date);
     const bs = nepaliDate.getBS();
-    const formatted = nepaliDate.format("YYYY-MM-DD");
+    const formatted = `${nepaliDate.format("YYYY-MM-DD")} BS`;
 
     return {
       year: bs.year,
-      month: bs.month,
+      month: bs.month + 1,
       date: bs.date,
-      monthName: bsMonthNames[bs.month - 1] ?? "",
+      monthName: bsMonthNames[bs.month] ?? "",
       formatted,
     };
   } catch {
@@ -72,7 +80,7 @@ export function bsToAdIso(year: number, month: number, date: number): string | n
 }
 
 export function formatAdDate(value: string | Date): string {
-  const date = typeof value === "string" ? parseIsoDate(value) : value;
+  const date = parseAdValue(value);
   if (!date) return "Invalid date";
   return date.toLocaleDateString("en-IN", {
     year: "numeric",
@@ -83,7 +91,7 @@ export function formatAdDate(value: string | Date): string {
 
 export function formatBsDate(value: string | Date): string {
   const bs = adToBs(value);
-  return bs ? `BS ${bs.formatted}` : "Invalid BS date";
+  return bs ? bs.formatted : "Invalid BS date";
 }
 
 export function formatAdWithBs(value: string | Date): string {

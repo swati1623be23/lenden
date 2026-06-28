@@ -58,6 +58,10 @@ export default function PaymentList({ payments }: PaymentListProps) {
     }
   }
 
+  function handleEditPayment(id: string) {
+    router.push(`/payments/${id}/edit`);
+  }
+
   if (payments.length === 0) {
     return <p className="mt-8 text-sm text-slate-400">No payments recorded yet. Add payment received from customers.</p>;
   }
@@ -94,12 +98,13 @@ export default function PaymentList({ payments }: PaymentListProps) {
               <div className="text-xs text-slate-400">{formatBsDate(payment.createdAt)}</div>
             </div>
             <div className="flex items-center justify-end gap-2">
-              <Link
-                href={`/payments/${payment.id}/edit`}
+              <button
+                type="button"
+                onClick={() => handleEditPayment(payment.id)}
                 className="rounded-2xl border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-emerald-400 hover:text-white"
               >
                 Edit
-              </Link>
+              </button>
               <button
                 type="button"
                 onClick={() => handleDelete(payment.id)}

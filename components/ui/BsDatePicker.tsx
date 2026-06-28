@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { adToBs, bsToAdIso, bsMonthOptions } from "@/lib/dates/bsDate";
-import type { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
+import type { FieldValues, Path, UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 interface BsDatePickerProps<T extends FieldValues> {
   label: string;
-  name: keyof T & string;
+  name: Path<T>;
   value: string;
   register: UseFormRegister<T>;
   setValue: UseFormSetValue<T>;
@@ -53,7 +53,7 @@ export default function BsDatePicker<T extends FieldValues>({
     if (!Number.isNaN(parsedYear) && parsedYear > 0 && parsedMonth >= 1 && parsedMonth <= 12 && parsedDay >= 1) {
       const iso = bsToAdIso(parsedYear, parsedMonth, parsedDay);
       if (iso) {
-        setValue(name, iso);
+        setValue(name as Path<T>, iso as never);
         setBsPreview(`${parsedYear}-${String(parsedMonth).padStart(2, "0")}-${String(parsedDay).padStart(2, "0")}`);
       }
     }
@@ -109,8 +109,8 @@ export default function BsDatePicker<T extends FieldValues>({
       </div>
 
       <div className="rounded-2xl border border-slate-700 bg-slate-950/80 p-3 text-sm text-slate-300">
-        <p>Gregorian (AD): {value || "Not selected"}</p>
-        <p>BS: {bsPreview ? `BS ${bsPreview}` : "Not selected"}</p>
+        <p>AD: {value || "Not selected"}</p>
+        <p>BS: {bsPreview || "Not selected"}</p>
       </div>
       {error ? <p className="mt-1 text-sm text-rose-400">{error}</p> : null}
     </div>

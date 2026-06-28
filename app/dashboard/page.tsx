@@ -35,21 +35,21 @@ export default async function DashboardPage() {
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6">
+            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 min-w-0 overflow-hidden">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Customers</p>
-              <p className="mt-4 text-4xl font-semibold text-white">{stats.customers}</p>
+              <p className="mt-4 text-2xl sm:text-3xl xl:text-4xl font-semibold text-white break-words">{stats.customers}</p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6">
+            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 min-w-0 overflow-hidden">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Total credit</p>
-              <p className="mt-4 text-4xl font-semibold text-white">₹{stats.totalCredits.toFixed(2)}</p>
+              <p className="mt-4 text-2xl sm:text-3xl xl:text-4xl font-semibold text-white break-words">₹{stats.totalCredits.toFixed(2)}</p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6">
+            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 min-w-0 overflow-hidden">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Total payment</p>
-              <p className="mt-4 text-4xl font-semibold text-white">₹{stats.totalPayments.toFixed(2)}</p>
+              <p className="mt-4 text-2xl sm:text-3xl xl:text-4xl font-semibold text-white break-words">₹{stats.totalPayments.toFixed(2)}</p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6">
+            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 min-w-0 overflow-hidden">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Outstanding</p>
-              <p className="mt-4 text-4xl font-semibold text-white">₹{stats.remaining.toFixed(2)}</p>
+              <p className="mt-4 text-2xl sm:text-3xl xl:text-4xl font-semibold text-white break-words">₹{stats.remaining.toFixed(2)}</p>
             </div>
           </div>
         </section>

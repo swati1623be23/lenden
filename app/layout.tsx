@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   themeColor: "#0f172a",
   icons: [
-    { rel: "icon", url: "/icons/icon.svg", type: "image/svg+xml" },
-    { rel: "apple-touch-icon", url: "/icons/icon-192x192.svg", type: "image/svg+xml" },
+    { rel: "icon", url: "/icons/icon-192x192.png", type: "image/png" },
+    { rel: "apple-touch-icon", url: "/icons/icon-192x192.png", type: "image/png" },
   ],
 };
 

@@ -1,8 +1,8 @@
-# 📒 LenDen - Smart Credit Management System
+# 📒 LenDen – Smart Credit Management System
 
-A modern **Credit Management System** built with **Next.js 16, TypeScript, Prisma, and PostgreSQL**.
+A modern **Credit Management System** built with **Next.js 16, TypeScript, Prisma ORM, PostgreSQL, and Tailwind CSS**.
 
-LenDen helps shop owners manage customers, credits, payments, balances, reports, and reminders from a single dashboard. The application also supports **Progressive Web App (PWA)** installation, **Offline Mode**, **English/Nepali language support**, and **Nepali (BS) date conversion**.
+LenDen helps shop owners manage customers, credits, payments, balances, reports, and reminders from a single dashboard. The application also supports **Progressive Web App (PWA)**, **Offline Mode**, **English/Nepali language support**, and **Nepali (BS) date conversion**.
 
 ---
 
@@ -14,8 +14,6 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 * User Login
 * Secure Logout
 * Protected Dashboard
-* JWT Authentication
-* Password Encryption
 
 ---
 
@@ -23,10 +21,10 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 
 * Total Customers
 * Total Credit Amount
-* Total Payments
+* Total Payment Amount
 * Remaining Balance
-* Recent Activity
 * Charts & Analytics
+* Recent Activity
 
 ---
 
@@ -37,9 +35,10 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 * Delete Customer
 * Search Customer
 * Customer Detail Page
-* Complete Transaction History
+* Customer Transaction History
 * Running Balance
-* Customer Profile
+* PDF Statement
+* WhatsApp Reminder
 
 ---
 
@@ -49,8 +48,8 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 * Edit Credit
 * Delete Credit
 * Credit Notes
-* Credit Date
-* BS Date Display
+* AD Date Picker
+* Automatic BS Date Conversion
 * Customer-wise Credit History
 
 ---
@@ -68,11 +67,11 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 ## 📈 Reports
 
 * Dashboard Reports
-* Date Filter
 * Customer Reports
 * Credit Reports
 * Payment Reports
 * Balance Reports
+* Date Filters
 * Excel Export (CSV/XLSX)
 * PDF Statement
 
@@ -81,50 +80,42 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 ## 🔔 Notifications
 
 * Notification Bell
-* Recent Activity Log
-* Overdue Information
+* Activity Log
 
 ---
 
-## 🏪 Shop Settings
+## ⚙️ Settings
 
-* Shop Name
-* Shop Address
-* Shop Phone
-* Shop Logo Upload
-
----
-
-## 👤 User Profile
-
+* Shop Settings
 * Profile Photo Upload
-* Account Settings
+* About
+* Help
+* Terms & Conditions
 
 ---
 
 ## 🌍 Language Support
 
-* English Language
-* Nepali Language
+* English
+* Nepali
 * Language Switcher
 * Local Storage Persistence
 
 ---
 
-## 🇳🇵 Nepali Calendar
+## 🇳🇵 Nepali Date Support
 
 * English (AD) Date Picker
 * Automatic BS Date Conversion
-* Nepali Calendar Support
+* Nepali (BS) Date Display
 
 ---
 
 ## 📱 Progressive Web App (PWA)
 
-* Installable Application
 * Android Support
 * Desktop Chrome Support
-* App Manifest
+* Web App Manifest
 * App Icons
 * Standalone Mode
 
@@ -133,21 +124,8 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 ## 📡 Offline Mode
 
 * Service Worker
-* Offline Banner
 * Cached Pages
 * Cached Static Assets
-* Auto Sync when Internet Returns
-
----
-
-## 📲 Extra Features
-
-* WhatsApp Reminder
-* PDF Statement Download
-* Activity Log
-* Search
-* Date Filter
-* Responsive Design
 
 ---
 
@@ -162,7 +140,7 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 
 ### Backend
 
-* Next.js API Routes
+* Next.js Route Handlers
 * Prisma ORM
 
 ### Database
@@ -171,21 +149,16 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 
 ### Authentication
 
-* JWT
 * bcryptjs
-
-### File Upload
-
-* Multer
 
 ### Charts
 
 * Recharts
 
-### Export
+### Reports
 
-* Excel (XLSX / CSV)
-* PDF
+* PDF Export
+* Excel Export (CSV/XLSX)
 
 ### PWA
 
@@ -196,13 +169,13 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 
 # 📂 Project Structure
 
-```
+```text
 app/
 components/
 lib/
+locales/
 prisma/
 public/
-locales/
 types/
 ```
 
@@ -237,16 +210,12 @@ DATABASE_URL=your_database_url
 JWT_SECRET=your_secret_key
 ```
 
----
-
 ## Prisma Setup
 
 ```bash
 npx prisma generate
 npx prisma migrate dev
 ```
-
----
 
 ## Run Development Server
 
@@ -256,7 +225,7 @@ npm run dev
 
 Open:
 
-```
+```text
 http://localhost:3000
 ```
 
@@ -274,28 +243,27 @@ http://localhost:3000
 * Reports
 * Settings
 * Notifications
-* Shop Settings
-* Profile
+* Customer Details
+* PDF Statement
+* WhatsApp Reminder
 * About
 * Help
 * Terms
 
 ---
 
-# 🔒 Security Features
+# 🔒 Security
 
-* JWT Authentication
 * Password Hashing
 * Protected Routes
-* Secure API Access
-* Prisma ORM
 * Environment Variables
+* Prisma ORM
 
 ---
 
 # 📱 Responsive Design
 
-The application is optimized for:
+Optimized for:
 
 * Desktop
 * Laptop
@@ -304,22 +272,11 @@ The application is optimized for:
 
 ---
 
-# 🎯 Future Improvements
-
-* Email Notifications
-* SMS Reminder
-* Cloud Backup
-* Multi-Shop Support
-* QR Code Payments
-* AI-based Credit Risk Analysis
-
----
-
 # 👩‍💻 Developer
 
 **Swati Chaudhary**
 
-B.Tech CSE Student
+B.Tech Computer Science Engineering
 
 Backend & Full Stack Developer
 
@@ -331,6 +288,6 @@ This project is developed for educational and portfolio purposes.
 
 ---
 
-# ⭐ If you like this project
+# ⭐ Support
 
-Please give it a ⭐ on GitHub!
+If you like this project, please give it a ⭐ on GitHub!

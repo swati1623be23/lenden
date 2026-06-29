@@ -10,9 +10,11 @@ export function PwaRegister() {
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js").catch(() => {
-          // Ignore registration errors to preserve existing app behavior.
-        });
+        navigator.serviceWorker
+          .register("/sw.js", { scope: "/" })
+          .catch(() => {
+            // Ignore registration errors to preserve existing app behavior.
+          });
       });
     }
   }, []);

@@ -34,7 +34,14 @@ export async function POST(request: Request) {
       user: { id: user.id, name: user.name, email: user.email },
     });
   } catch (error) {
-    console.error("Register route error:", error);
-    return NextResponse.json({ error: "Unable to register. Please try again." }, { status: 500 });
+    console.error("REGISTER ERROR:", error);
+
+    return NextResponse.json(
+      {
+        message: "Registration failed",
+        error: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 }

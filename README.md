@@ -2,7 +2,7 @@
 
 A modern **Credit Management System** built with **Next.js 16, TypeScript, Prisma ORM, PostgreSQL, and Tailwind CSS**.
 
-LenDen helps shop owners manage customers, credits, payments, balances, reports, and reminders from a single dashboard. The application also supports **Progressive Web App (PWA)**, **Offline Mode**, **English/Nepali language support**, and **Nepali (BS) date conversion**.
+LenDen helps shop owners manage customers, credits, payments, balances, reports, and reminders from a single dashboard. The application also supports **Progressive Web App (PWA)** with **App Installation (Add to Home Screen)**, **Offline Mode**, **English/Nepali language support**, and **Automatic Nepali (BS) Date Conversion**.
 
 ---
 
@@ -111,21 +111,27 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 
 ---
 
-## 📱 Progressive Web App (PWA)
+# 📱 Progressive Web App (PWA)
 
-* Android Support
+* Installable Web Application
+* Install App Support (Android & Desktop)
+* Add to Home Screen (A2HS)
+* Standalone Mode
+* Android Chrome Support
 * Desktop Chrome Support
 * Web App Manifest
-* App Icons
-* Standalone Mode
+* Custom App Icons
+* Service Worker Integration
 
 ---
 
-## 📡 Offline Mode
+# 📡 Offline Mode
 
 * Service Worker
 * Cached Pages
 * Cached Static Assets
+* Offline Banner
+* Offline Access to Previously Visited Pages
 
 ---
 
@@ -150,6 +156,7 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 ### Authentication
 
 * bcryptjs
+* JWT Authentication
 
 ### Charts
 
@@ -164,6 +171,7 @@ LenDen helps shop owners manage customers, credits, payments, balances, reports,
 
 * Web App Manifest
 * Service Worker
+* Installable Web App
 
 ---
 
@@ -255,6 +263,7 @@ http://localhost:3000
 # 🔒 Security
 
 * Password Hashing
+* JWT Authentication
 * Protected Routes
 * Environment Variables
 * Prisma ORM

@@ -1,27 +1,29 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { requireUser, requireApiUser } from "@/lib/auth";
+import { requireApiUser } from "@/lib/auth";
 import { notifyCustomerAdded } from "@/lib/notifications";
 
 export async function GET(request: Request) {
-  await requireUser();
+  const auth = await requireApiUser();
+  if (auth instanceof NextResponse) return auth;
   const url = new URL(request.url);
   const search = url.searchParams.get("search") || "";
 
   const term = search.trim();
   const customers = await prisma.customer.findMany({
-    where: term
-      ? {
+    where: {
+      userId: auth.id,
+      ...(term ? {
           OR: [
             { name: { contains: term, mode: "insensitive" } },
             { phone: { contains: term, mode: "insensitive" } },
           ],
-        }
-      : {},
+        } : {}),
+    },
     orderBy: { name: "asc" },
   });
 
-  return NextResponse.json({ customers });
+  return NextResponse.json({ customers }, { headers: { "Cache-Control": "private, no-store" } });
 }
 
 export async function POST(request: Request) {
@@ -36,7 +38,7 @@ export async function POST(request: Request) {
   }
 
   const customer = await prisma.customer.create({
-    data: { name: name.trim(), phone: phone?.trim() || null, address: address?.trim() || null },
+    data: { name: name.trim(), phone: phone?.trim() || null, address: address?.trim() || null, userId: auth.id },
   });
 
   // Create notification

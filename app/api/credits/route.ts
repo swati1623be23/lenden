@@ -1,34 +1,41 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { requireUser, requireApiUser } from "@/lib/auth";
+import { requireApiUser } from "@/lib/auth";
 import { notifyCreditAdded } from "@/lib/notifications";
+import { creditSchema } from "@/lib/validators";
 
-export async function GET(request: Request) {
-  await requireUser();
+export async function GET() {
+  const auth = await requireApiUser();
+  if (auth instanceof NextResponse) return auth;
   const credits = await prisma.credit.findMany({
+    where: { customer: { is: { userId: auth.id } } },
     orderBy: { createdAt: "desc" },
     include: { customer: true },
   });
-  return NextResponse.json({ credits });
+  return NextResponse.json({ credits }, { headers: { "Cache-Control": "private, no-store" } });
 }
 
 export async function POST(request: Request) {
   const auth = await requireApiUser();
   if (auth instanceof NextResponse) return auth;
 
-  const body = await request.json();
-  const { customerId, amount, note, date } = body;
+  const parsed = creditSchema.safeParse(await request.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message || "Invalid credit payload." }, { status: 400 });
+  }
+  const { customerId, amount, note, date } = parsed.data;
 
-  if (!customerId || !amount || amount <= 0 || !date) {
-    return NextResponse.json({ error: "Invalid credit payload." }, { status: 400 });
+  const customer = await prisma.customer.findFirst({ where: { id: customerId, userId: auth.id } });
+  if (!customer) {
+    return NextResponse.json({ error: "Customer not found." }, { status: 404 });
   }
 
   const credit = await prisma.credit.create({
     data: {
       amount: Number(amount),
       note: note?.trim() || null,
-      createdAt: new Date(date),
-      customer: { connect: { id: customerId } },
+      createdAt: new Date(`${date}T00:00:00.000Z`),
+      customerId: customer.id,
     },
     include: { customer: true },
   });

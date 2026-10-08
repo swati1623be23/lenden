@@ -43,10 +43,18 @@ function parseAdValue(value: string | Date): Date | null {
   if (parts.length !== 3) return null;
 
   const [year, month, day] = parts.map(Number);
-  if ([year, month, day].some((n) => Number.isNaN(n))) return null;
+  if (![year, month, day].every(Number.isInteger) || month < 1 || month > 12 || day < 1 || day > 31) return null;
 
   const date = new Date(year, month - 1, day);
-  return Number.isNaN(date.getTime()) ? null : date;
+  if (
+    Number.isNaN(date.getTime()) ||
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+  return date;
 }
 
 export function adToBs(value: string | Date): BsDate | null {
@@ -72,11 +80,34 @@ export function adToBs(value: string | Date): BsDate | null {
 
 export function bsToAdIso(year: number, month: number, date: number): string | null {
   try {
+    if (
+      !Number.isInteger(year) || year < 2000 || year > 2090 ||
+      !Number.isInteger(month) || month < 1 || month > 12 ||
+      !Number.isInteger(date) || date < 1 || date > 32
+    ) {
+      return null;
+    }
+
     const nepaliDate = new NepaliDate(year, month - 1, date);
-    return toIsoDate(nepaliDate.toJsDate());
+    const bs = nepaliDate.getBS();
+    if (bs.year !== year || bs.month !== month - 1 || bs.date !== date) return null;
+
+    const ad = nepaliDate.getAD();
+    const iso = `${ad.year}-${pad(ad.month + 1)}-${pad(ad.date)}`;
+    const roundTrip = adToBs(iso);
+    if (!roundTrip || roundTrip.year !== year || roundTrip.month !== month || roundTrip.date !== date) return null;
+    return iso;
   } catch {
     return null;
   }
+}
+
+export function isValidAdDate(value: string): boolean {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) && Boolean(adToBs(value));
+}
+
+export function getTodayAdIso(): string {
+  return toIsoDate(new Date());
 }
 
 export function formatAdDate(value: string | Date): string {

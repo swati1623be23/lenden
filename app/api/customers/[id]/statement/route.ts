@@ -13,8 +13,8 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
   try {
     const [customer, user] = await Promise.all([
-      prisma.customer.findUnique({
-        where: { id },
+      prisma.customer.findFirst({
+        where: { id, userId: auth.id },
         include: {
           credits: {
             select: { amount: true, note: true, createdAt: true },

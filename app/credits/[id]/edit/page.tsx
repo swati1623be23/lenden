@@ -3,9 +3,9 @@ import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import CreditEditForm from "@/components/credits/CreditEditForm";
 
-async function getCredit(id: string) {
-  return prisma.credit.findUnique({
-    where: { id },
+async function getCredit(id: string, userId: string) {
+  return prisma.credit.findFirst({
+    where: { id, customer: { is: { userId } } },
     include: { customer: true },
   });
 }
@@ -15,7 +15,7 @@ export default async function CreditEditPage({ params }: { params: Promise<{ id:
   const { id } = await params;
   console.log("Loading credit edit page:", id);
 
-  const credit = await getCredit(id);
+  const credit = await getCredit(id, user.id);
 
   if (!credit) {
     return (

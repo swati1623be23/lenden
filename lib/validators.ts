@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidAdDate } from "@/lib/dates/bsDate";
 
 export const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -21,7 +22,7 @@ export const creditSchema = z.object({
   customerId: z.string().trim().min(1, "Customer is required."),
   amount: z.coerce.number().positive("Amount must be greater than 0."),
   note: z.string().max(255).optional(),
-  date: z.string().min(1, "Date is required."),
+  date: z.string().min(1, "Date is required.").refine(isValidAdDate, "Enter a valid AD date."),
 });
 
 export const paymentSchema = z.object({

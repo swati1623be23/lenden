@@ -2,13 +2,13 @@ import { Users, CreditCard, Banknote, MessageCircle, BarChart3, FileDown, Langua
 
 export function Features() {
   return (
-    <section id="features" className="py-24 sm:py-32 bg-slate-950">
+    <section id="features" className="py-24 sm:py-32 bg-[#f6f8f5]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-[#18231f] sm:text-4xl">
             Everything you need to stay on top of your money
           </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-400">
+          <p className="mt-6 text-lg leading-8 text-slate-600">
             A complete suite of tools designed to help you manage credit and recover payments faster.
           </p>
         </div>
@@ -17,13 +17,13 @@ export function Features() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           
           {/* Feature 1: Customer Management (Large) */}
-          <div className="md:col-span-2 rounded-3xl border border-white/10 bg-slate-900/50 overflow-hidden flex flex-col md:flex-row group">
+          <div className="md:col-span-2 rounded-2xl border border-[#dce5dd] bg-white overflow-hidden flex flex-col md:flex-row group shadow-sm">
             <div className="p-8 md:w-1/2 flex flex-col justify-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/20 mb-6">
                 <Users className="h-6 w-6 text-indigo-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Customer Management</h3>
-              <p className="text-slate-400 leading-relaxed mb-6">
+              <h3 className="text-xl font-bold text-[#18231f] mb-3">Customer Management</h3>
+              <p className="text-slate-600 leading-relaxed mb-6">
                 Create comprehensive profiles for every customer. Track their total credit, payments made, and current outstanding balance at a glance.
               </p>
               <span className="text-indigo-400 text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
@@ -31,7 +31,7 @@ export function Features() {
               </span>
             </div>
             <div className="md:w-1/2 bg-slate-900 p-6 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-l from-slate-900/50 to-transparent z-10" />
+              <div className="absolute inset-0 bg-linear-to-l from-slate-900/50 to-transparent z-10" />
               {/* Mockup */}
               <div className="w-full max-w-sm rounded-xl border border-white/10 bg-slate-950 shadow-2xl p-4 rotate-2 group-hover:rotate-0 transition-transform duration-500">
                 <div className="flex items-center gap-4 mb-6">
@@ -64,13 +64,13 @@ export function Features() {
           </div>
 
           {/* Feature 2: Credit Tracking */}
-          <div className="rounded-3xl border border-white/10 bg-slate-900/50 overflow-hidden flex flex-col group">
+          <div className="rounded-2xl border border-[#dce5dd] bg-white overflow-hidden flex flex-col group shadow-sm">
             <div className="p-8 flex-1">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/20 mb-6">
                 <CreditCard className="h-6 w-6 text-rose-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Credit Tracking</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
+              <h3 className="text-xl font-bold text-[#18231f] mb-3">Credit Tracking</h3>
+              <p className="text-slate-600 leading-relaxed text-sm">
                 Record credit with due dates, categories, and descriptive notes in seconds.
               </p>
             </div>
@@ -96,13 +96,13 @@ export function Features() {
           </div>
 
           {/* Feature 3: Payment Management */}
-          <div className="rounded-3xl border border-white/10 bg-slate-900/50 overflow-hidden flex flex-col group">
+          <div className="rounded-2xl border border-[#dce5dd] bg-white overflow-hidden flex flex-col group shadow-sm">
              <div className="p-8 flex-1">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20 mb-6">
                 <Banknote className="h-6 w-6 text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Payment Management</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
+              <h3 className="text-xl font-bold text-[#18231f] mb-3">Payment Management</h3>
+              <p className="text-slate-600 leading-relaxed text-sm">
                 Log full or partial payments. LenDen automatically recalculates the remaining balance instantly.
               </p>
             </div>
@@ -125,13 +125,13 @@ export function Features() {
           </div>
 
           {/* Feature 4: WhatsApp Reminders (Large) */}
-          <div className="md:col-span-2 rounded-3xl border border-white/10 bg-slate-900/50 overflow-hidden flex flex-col md:flex-row-reverse group">
+          <div className="md:col-span-2 rounded-2xl border border-[#dce5dd] bg-white overflow-hidden flex flex-col md:flex-row-reverse group shadow-sm">
             <div className="p-8 md:w-1/2 flex flex-col justify-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#25D366]/20 mb-6">
                 <MessageCircle className="h-6 w-6 text-[#25D366]" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">WhatsApp Reminders</h3>
-              <p className="text-slate-400 leading-relaxed mb-6">
+              <h3 className="text-xl font-bold text-[#18231f] mb-3">WhatsApp Reminders</h3>
+              <p className="text-slate-600 leading-relaxed mb-6">
                 Stop feeling awkward about asking for money. Send polite, pre-filled payment reminders directly via WhatsApp in one click.
               </p>
               <span className="text-[#25D366] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
@@ -140,7 +140,7 @@ export function Features() {
             </div>
             <div className="md:w-1/2 bg-slate-900 p-6 flex items-center justify-center relative overflow-hidden">
                {/* Mockup */}
-               <div className="w-full max-w-[280px] rounded-3xl border-4 border-slate-800 bg-[#E5DDD5] shadow-2xl overflow-hidden -rotate-2 group-hover:rotate-0 transition-transform duration-500">
+               <div className="w-full max-w-70 rounded-3xl border-4 border-slate-800 bg-[#E5DDD5] shadow-2xl overflow-hidden -rotate-2 group-hover:rotate-0 transition-transform duration-500">
                   <div className="bg-[#075E54] text-white px-4 py-3 flex items-center gap-3 shadow-md z-10 relative">
                     <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">R</div>
                     <div>
@@ -167,12 +167,12 @@ export function Features() {
           </div>
 
           {/* Feature 5: Reports */}
-          <div className="rounded-3xl border border-white/10 bg-slate-900/50 p-8 flex flex-col group">
+          <div className="rounded-2xl border border-[#dce5dd] bg-white p-8 flex flex-col group shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 mb-6">
               <BarChart3 className="h-6 w-6 text-blue-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-3">Reports & Analytics</h3>
-            <p className="text-slate-400 text-sm mb-6 flex-1">
+            <h3 className="text-xl font-bold text-[#18231f] mb-3">Reports & Analytics</h3>
+            <p className="text-slate-600 text-sm mb-6 flex-1">
               Visualize credit trends, monthly collections, and outstanding balances with beautiful charts.
             </p>
             <div className="h-24 w-full bg-slate-900 rounded-xl border border-white/5 p-3 flex items-end gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
@@ -183,12 +183,12 @@ export function Features() {
           </div>
 
           {/* Feature 6: Exports */}
-          <div className="rounded-3xl border border-white/10 bg-slate-900/50 p-8 flex flex-col group">
+          <div className="rounded-2xl border border-[#dce5dd] bg-white p-8 flex flex-col group shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/20 mb-6">
               <FileDown className="h-6 w-6 text-orange-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-3">PDF Statements</h3>
-            <p className="text-slate-400 text-sm mb-6 flex-1">
+            <h3 className="text-xl font-bold text-[#18231f] mb-3">PDF Statements</h3>
+            <p className="text-slate-600 text-sm mb-6 flex-1">
               Generate professional customer statements and export business data to PDF or CSV instantly.
             </p>
             <div className="h-24 w-full bg-slate-900 rounded-xl border border-white/5 flex items-center justify-center group-hover:border-orange-500/30 transition-colors">
@@ -200,16 +200,16 @@ export function Features() {
           </div>
 
           {/* Feature 7: PWA / Offline */}
-          <div className="rounded-3xl border border-white/10 bg-slate-900/50 p-8 flex flex-col group">
+          <div className="rounded-2xl border border-[#dce5dd] bg-white p-8 flex flex-col group shadow-sm">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/20 mb-6">
               <Smartphone className="h-6 w-6 text-cyan-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-3">Mobile & Offline Ready</h3>
-            <p className="text-slate-400 text-sm mb-6 flex-1">
+            <h3 className="text-xl font-bold text-[#18231f] mb-3">Mobile & Offline Ready</h3>
+            <p className="text-slate-600 text-sm mb-6 flex-1">
               Install LenDen as an app on your phone. Works reliably even when your internet connection drops.
             </p>
             <div className="h-24 w-full bg-slate-900 rounded-xl border border-white/5 flex items-center justify-center relative overflow-hidden group-hover:shadow-inner">
-               <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0" />
+               <div className="absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0" />
                <p className="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded">Offline Mode Active</p>
             </div>
           </div>

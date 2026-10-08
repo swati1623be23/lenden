@@ -3,9 +3,9 @@ import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import CustomerList, { type CustomerListItem } from "@/components/customers/CustomerList";
 
-async function getCustomers(): Promise<CustomerListItem[]> {
+async function getCustomers(userId: string): Promise<CustomerListItem[]> {
   const customers = await prisma.customer.findMany({
-    where: {},
+    where: { userId },
     include: {
       credits: { select: { amount: true } },
       payments: { select: { amount: true } },
@@ -29,7 +29,7 @@ async function getCustomers(): Promise<CustomerListItem[]> {
 
 export default async function CustomersPage() {
   const user = await requireUser();
-  const customers = await getCustomers();
+  const customers = await getCustomers(user.id);
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">

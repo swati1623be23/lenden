@@ -2,8 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 
-async function getBalanceData() {
+async function getBalanceData(userId: string) {
   const customers = await prisma.customer.findMany({
+    where: { userId },
     include: {
       credits: { select: { amount: true } },
       payments: { select: { amount: true } },
@@ -32,7 +33,7 @@ async function getBalanceData() {
 
 export default async function BalancePage() {
   const user = await requireUser();
-  const { customerBalances, totalCredit, totalPayment, remaining } = await getBalanceData();
+  const { customerBalances, totalCredit, totalPayment, remaining } = await getBalanceData(user.id);
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">
@@ -61,7 +62,8 @@ export default async function BalancePage() {
             </div>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/80">
+          <div className="mt-10 overflow-x-auto rounded-3xl border border-white/10 bg-slate-950/80">
+            <div className="min-w-[680px]">
             <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-4 border-b border-white/10 bg-slate-900/90 px-6 py-4 text-xs uppercase tracking-[0.24em] text-slate-500">
               <span>Customer</span>
               <span>Total credit</span>
@@ -79,6 +81,7 @@ export default async function BalancePage() {
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </section>

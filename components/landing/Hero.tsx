@@ -3,11 +3,10 @@ import { ArrowRight, TrendingUp, Users, CreditCard, Banknote, AlertCircle, BellR
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-40 bg-slate-950">
+    <section className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-32 bg-[#f6f8f5]">
       {/* Background elements */}
-      <div className="absolute inset-0 -z-10 bg-slate-950">
-        <div className="absolute -top-40 right-0 h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-[120px]" />
-        <div className="absolute top-40 -left-40 h-[600px] w-[600px] rounded-full bg-emerald-500/10 blur-[120px]" />
+      <div className="absolute inset-0 -z-10 bg-[#f6f8f5]">
+        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-emerald-900/15 to-transparent" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -15,26 +14,26 @@ export function Hero() {
           
           {/* Left Content */}
           <div className="col-span-5 text-left mb-16 lg:mb-0">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-300 mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-900/15 bg-white/80 px-3 py-1.5 text-sm text-emerald-900 mb-6 shadow-sm">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-700"></span>
               Built for small businesses
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl mb-6 leading-[1.1]">
-              Credit & Payment Management for <span className="text-emerald-400">Every Business</span>
+            <h1 className="text-4xl font-bold tracking-tight text-[#18231f] sm:text-6xl mb-6 leading-[1.08]">
+              Credit & Payment Management for <span className="text-emerald-800">Every Business</span>
             </h1>
-            <p className="text-lg leading-8 text-slate-400 mb-8 max-w-xl">
+            <p className="text-lg leading-8 text-slate-600 mb-8 max-w-xl">
               Track customer credit, payments, outstanding balances and reminders — all in one simple platform. Say goodbye to paper notebooks.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/register"
-                className="inline-flex justify-center items-center gap-2 rounded-full bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400"
+                className="inline-flex justify-center items-center gap-2 rounded-lg bg-emerald-800 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-950/10 transition hover:bg-emerald-900"
               >
                 Get Started Free <ArrowRight size={16} />
               </Link>
               <Link
                 href="/login"
-                className="inline-flex justify-center items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10 hover:border-white/20"
+                className="inline-flex justify-center items-center gap-2 rounded-lg border border-[#cbd7ce] bg-white px-6 py-3.5 text-sm font-semibold text-[#24332b] transition hover:bg-emerald-50 hover:border-emerald-800/30"
               >
                 Explore Dashboard
               </Link>
@@ -45,7 +44,7 @@ export function Hero() {
           <div className="col-span-7 relative mx-auto w-full max-w-2xl lg:max-w-none">
             
             {/* Desktop Tilted Container */}
-            <div className="relative w-full lg:translate-x-12 lg:scale-[1.1] lg:rotate-[-2deg] lg:perspective-[2000px] lg:rotate-y-[10deg] lg:rotate-x-[5deg]">
+            <div className="relative w-full lg:translate-x-8">
               
               {/* Floating Card 1: Payment Received */}
               <div className="absolute -left-12 top-12 z-20 animate-[bounce_6s_infinite] hidden md:flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur-md p-4 shadow-2xl shadow-emerald-500/20">
@@ -92,7 +91,7 @@ export function Hero() {
               </div>
 
               {/* Main Mockup Window */}
-              <div className="relative rounded-2xl border border-white/10 bg-slate-950 shadow-2xl overflow-hidden ring-1 ring-white/10 bg-gradient-to-b from-slate-900 to-slate-950">
+              <div className="relative rounded-2xl border border-white/10 bg-slate-950 shadow-2xl overflow-hidden ring-1 ring-white/10 bg-linear-to-b from-slate-900 to-slate-950">
                 {/* Window Header */}
                 <div className="flex items-center justify-between border-b border-white/10 bg-slate-900/80 backdrop-blur px-4 py-3">
                   <div className="flex gap-1.5">

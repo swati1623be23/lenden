@@ -81,7 +81,7 @@ function sumUpTo(items: { amount: number; createdAt: Date }[], end: Date) {
   return items.filter((item) => item.createdAt <= end).reduce((sum, item) => sum + item.amount, 0);
 }
 
-export async function getReportData(dateRange?: DateRange | null): Promise<ReportData> {
+export async function getReportData(userId: string, dateRange?: DateRange | null): Promise<ReportData> {
   const dateWhere = dateRange
     ? {
         createdAt: {
@@ -93,14 +93,15 @@ export async function getReportData(dateRange?: DateRange | null): Promise<Repor
 
   const [credits, payments, customers] = await Promise.all([
     prisma.credit.findMany({
-      where: dateWhere,
+      where: { ...dateWhere, customer: { is: { userId } } },
       select: { amount: true, createdAt: true, customerId: true },
     }),
     prisma.payment.findMany({
-      where: dateWhere,
+      where: { ...dateWhere, customer: { is: { userId } } },
       select: { amount: true, createdAt: true, customerId: true },
     }),
     prisma.customer.findMany({
+      where: { userId },
       select: { id: true, name: true },
       orderBy: { name: "asc" },
     }),

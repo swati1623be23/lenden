@@ -46,10 +46,10 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 sm:py-32 bg-slate-950">
+    <section id="faq" className="py-24 sm:py-32 bg-[#f6f8f5]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-[#18231f] sm:text-4xl">
             Frequently Asked Questions
           </h2>
         </div>
@@ -57,15 +57,15 @@ export function FAQ() {
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className="rounded-2xl border border-white/10 bg-slate-900/50 overflow-hidden"
+              className="rounded-xl border border-[#dce5dd] bg-white overflow-hidden shadow-sm"
             >
               <button
-                className="flex w-full items-center justify-between px-6 py-5 text-left text-white"
+                className="flex w-full items-center justify-between px-6 py-5 text-left text-[#18231f]"
                 onClick={() => toggleOpen(index)}
               >
                 <span className="font-medium">{faq.question}</span>
                 <ChevronDown 
-                  className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${
+                  className={`h-5 w-5 text-slate-500 transition-transform duration-200 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 />
@@ -75,7 +75,7 @@ export function FAQ() {
                   openIndex === index ? "max-h-40 pb-5 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-slate-400">{faq.answer}</p>
+                <p className="text-slate-600">{faq.answer}</p>
               </div>
             </div>
           ))}

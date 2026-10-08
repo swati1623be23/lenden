@@ -3,8 +3,8 @@ import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import CustomerEditForm from "@/components/customers/CustomerEditForm";
 
-async function getCustomer(id: string) {
-  return prisma.customer.findUnique({ where: { id } });
+async function getCustomer(id: string, userId: string) {
+  return prisma.customer.findFirst({ where: { id, userId } });
 }
 
 export default async function CustomerEditPage({ params }: { params: Promise<{ id: string }> }) {
@@ -12,7 +12,7 @@ export default async function CustomerEditPage({ params }: { params: Promise<{ i
   const { id } = await params;
   console.log("Loading customer edit page:", id);
 
-  const customer = await getCustomer(id);
+  const customer = await getCustomer(id, user.id);
 
   if (!customer) {
     return (

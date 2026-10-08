@@ -18,6 +18,7 @@ model User {
   shopAddress      String?
   shopLogoUrl      String?
   notifications    Notification[]
+  customers        Customer[]
 }
 
 model Customer {
@@ -25,8 +26,12 @@ model Customer {
   name     String
   phone    String?
   address  String?
+  userId   String?
+  user     User?     @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   credits  Credit[]
   payments Payment[]
+
+  @@index([userId])
 }
 
 model Credit {

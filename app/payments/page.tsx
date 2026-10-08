@@ -3,8 +3,9 @@ import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import PaymentList, { type PaymentListItem } from "@/components/payments/PaymentList";
 
-async function getPayments(): Promise<PaymentListItem[]> {
+async function getPayments(userId: string): Promise<PaymentListItem[]> {
   const payments = await prisma.payment.findMany({
+    where: { customer: { is: { userId } } },
     orderBy: { createdAt: "desc" },
     include: { customer: { select: { id: true, name: true } } },
   });
@@ -20,7 +21,7 @@ async function getPayments(): Promise<PaymentListItem[]> {
 
 export default async function PaymentsPage() {
   const user = await requireUser();
-  const payments = await getPayments();
+  const payments = await getPayments(user.id);
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">

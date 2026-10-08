@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { z } from "zod";
 import { paymentSchema } from "@/lib/validators";
 import BsDatePicker from "@/components/ui/BsDatePicker";
 import type { PaymentInput } from "@/lib/validators";
 import type { Customer } from "@prisma/client";
 import toast, { Toaster } from "react-hot-toast";
+
+type PaymentFormInput = z.input<typeof paymentSchema>;
 
 type PaymentFormProps = {
   heading: string;
@@ -41,7 +44,7 @@ export default function PaymentForm({
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<PaymentInput>({
+  } = useForm<PaymentFormInput, undefined, PaymentInput>({
     resolver: zodResolver(paymentSchema),
     defaultValues: {
       customerId: defaultValues?.customerId ?? "",

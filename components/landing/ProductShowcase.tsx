@@ -2,19 +2,19 @@ import { CheckCircle2, Search, Filter, MoreVertical, FileText, Share2, Printer }
 
 export function ProductShowcase() {
   return (
-    <section className="py-24 sm:py-32 bg-slate-900 overflow-hidden">
+    <section className="py-24 sm:py-32 bg-[#edf2ed] overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 space-y-32">
         
         {/* Section 1: Dashboard */}
         <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
           <div className="lg:col-span-5 mb-10 lg:mb-0">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-6">
+            <h2 className="text-3xl font-bold tracking-tight text-[#18231f] sm:text-4xl mb-6">
               Know exactly what your business is owed
             </h2>
-            <p className="text-lg text-slate-400 mb-8">
+            <p className="text-lg text-slate-600 mb-8">
               Get a clear, real-time overview of your cash flow. See total receivables, active customers, and prioritize collections effortlessly from a central dashboard.
             </p>
-            <ul className="space-y-4 text-slate-300">
+            <ul className="space-y-4 text-slate-700">
               {['Real-time dashboard metrics', 'Visual credit vs payment insights', 'Automatic overdue alerts'].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <CheckCircle2 size={20} className="text-emerald-500" />
@@ -86,13 +86,13 @@ export function ProductShowcase() {
         {/* Section 2: Ledger & Payments */}
         <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
           <div className="lg:col-span-5 mb-10 lg:mb-0 lg:order-last">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-6">
+            <h2 className="text-3xl font-bold tracking-tight text-[#18231f] sm:text-4xl mb-6">
               Never lose track of customer payments
             </h2>
-            <p className="text-lg text-slate-400 mb-8">
+            <p className="text-lg text-slate-600 mb-8">
               Maintain a transparent ledger for every customer. Record partial payments, track credit history, and generate PDF statements instantly.
             </p>
-            <ul className="space-y-4 text-slate-300">
+            <ul className="space-y-4 text-slate-700">
               {['Detailed transaction ledgers', 'Record partial & full payments', 'Instant PDF statement exports'].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <CheckCircle2 size={20} className="text-emerald-500" />
@@ -161,13 +161,13 @@ export function ProductShowcase() {
         {/* Section 3: WhatsApp Reminders */}
         <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
           <div className="lg:col-span-5 mb-10 lg:mb-0">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-6">
+            <h2 className="text-3xl font-bold tracking-tight text-[#18231f] sm:text-4xl mb-6">
               Turn overdue payments into reminders
             </h2>
-            <p className="text-lg text-slate-400 mb-8">
+            <p className="text-lg text-slate-600 mb-8">
               Stop feeling awkward about asking for money. Send polite, pre-filled WhatsApp reminders directly from the customer profile.
             </p>
-            <ul className="space-y-4 text-slate-300">
+            <ul className="space-y-4 text-slate-700">
               {['One-click WhatsApp integration', 'Pre-filled smart message templates', 'Professional communication format'].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <CheckCircle2 size={20} className="text-emerald-500" />
@@ -202,7 +202,7 @@ export function ProductShowcase() {
               </div>
 
               {/* Phone Mockup */}
-              <div className="w-[280px] flex-shrink-0 rounded-[2.5rem] border-[8px] border-slate-800 bg-[#E5DDD5] shadow-2xl overflow-hidden relative h-[500px]">
+              <div className="w-70 shrink-0 rounded-[2.5rem] border-8 border-slate-800 bg-[#E5DDD5] shadow-2xl overflow-hidden relative h-125">
                 {/* Notch */}
                 <div className="absolute top-0 inset-x-0 h-6 bg-slate-800 rounded-b-xl w-32 mx-auto z-20"></div>
                 

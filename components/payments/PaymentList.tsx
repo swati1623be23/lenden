@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import DateFilter, { createEmptyDateFilterValue, type DateFilterValue } from "@/components/ui/DateFilter";
@@ -81,7 +80,8 @@ export default function PaymentList({ payments }: PaymentListProps) {
       {filteredPayments.length === 0 ? (
         <p className="text-sm text-slate-400">No payments found for the selected date range.</p>
       ) : (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/80">
+    <div className="overflow-x-auto rounded-3xl border border-white/10 bg-slate-950/80">
+      <div className="min-w-[700px]">
       <div className="grid grid-cols-[1.5fr_1fr_1fr_auto] gap-4 border-b border-white/10 bg-slate-900/90 px-6 py-4 text-xs uppercase tracking-[0.24em] text-slate-500">
         <span>Customer</span>
         <span>Amount</span>
@@ -116,6 +116,7 @@ export default function PaymentList({ payments }: PaymentListProps) {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
       )}

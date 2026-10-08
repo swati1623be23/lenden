@@ -1,14 +1,17 @@
-import { cookies } from "next/headers";
 import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import { prisma } from "@/lib/prisma";
-import { translate } from "@/lib/i18n";
-import { getLocaleFromCookies } from "@/lib/serverLocale";
 
-async function getStats() {
-  const customers = await prisma.customer.count();
-  const totalCredits = await prisma.credit.aggregate({ _sum: { amount: true } });
-  const totalPayments = await prisma.payment.aggregate({ _sum: { amount: true } });
+async function getStats(userId: string) {
+  const customers = await prisma.customer.count({ where: { userId } });
+  const totalCredits = await prisma.credit.aggregate({
+    where: { customer: { is: { userId } } },
+    _sum: { amount: true },
+  });
+  const totalPayments = await prisma.payment.aggregate({
+    where: { customer: { is: { userId } } },
+    _sum: { amount: true },
+  });
   return {
     customers,
     totalCredits: totalCredits._sum.amount ?? 0,
@@ -19,7 +22,7 @@ async function getStats() {
 
 export default async function DashboardPage() {
   const user = await requireUser();
-  const stats = await getStats();
+  const stats = await getStats(user.id);
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">

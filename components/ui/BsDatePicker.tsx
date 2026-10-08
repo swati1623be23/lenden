@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { adToBs, bsToAdIso, bsMonthOptions } from "@/lib/dates/bsDate";
 import type { FieldValues, Path, UseFormRegister, UseFormSetValue } from "react-hook-form";
 
@@ -21,43 +21,51 @@ export default function BsDatePicker<T extends FieldValues>({
   setValue,
   error,
 }: BsDatePickerProps<T>) {
-  const [bsYear, setBsYear] = useState("");
-  const [bsMonth, setBsMonth] = useState(1);
-  const [bsDay, setBsDay] = useState(1);
-  const [bsPreview, setBsPreview] = useState("");
+  const initialBsDate = adToBs(value);
+  const [bsYear, setBsYear] = useState(() => initialBsDate ? String(initialBsDate.year) : "");
+  const [bsMonth, setBsMonth] = useState(() => initialBsDate?.month ?? 1);
+  const [bsDay, setBsDay] = useState(() => initialBsDate?.date ?? 1);
+  const [bsValidationError, setBsValidationError] = useState("");
 
-  useEffect(() => {
-    const bs = adToBs(value);
-    if (bs) {
-      setBsYear(String(bs.year));
-      setBsMonth(bs.month);
-      setBsDay(bs.date);
-      setBsPreview(bs.formatted);
+  const maxBsDay = useMemo(() => {
+    const year = Number(bsYear);
+    if (!Number.isInteger(year) || year < 2000 || year > 2090) return 32;
+    let maxDay = 0;
+    for (let day = 1; day <= 32; day += 1) {
+      if (bsToAdIso(year, bsMonth, day)) maxDay = day;
     }
-  }, [value]);
+    return maxDay || 32;
+  }, [bsYear, bsMonth]);
 
-  const years = useMemo(() => {
-    const currentYear = new Date().getFullYear();
-    const list = [];
-    for (let year = 2000; year <= currentYear + 10; year += 1) {
-      list.push(year);
+  function syncBsFromAd(adValue: string) {
+    const bs = adToBs(adValue);
+    if (!bs) {
+      setBsYear("");
+      setBsDay(1);
+      setBsValidationError(adValue ? "Enter a valid AD date." : "");
+      return;
     }
-    return list;
-  }, []);
 
-  useEffect(() => {
-    const parsedYear = Number(bsYear);
-    const parsedMonth = Number(bsMonth);
-    const parsedDay = Number(bsDay);
+    setBsYear(String(bs.year));
+    setBsMonth(bs.month);
+    setBsDay(bs.date);
+    setBsValidationError("");
+  }
 
-    if (!Number.isNaN(parsedYear) && parsedYear > 0 && parsedMonth >= 1 && parsedMonth <= 12 && parsedDay >= 1) {
-      const iso = bsToAdIso(parsedYear, parsedMonth, parsedDay);
-      if (iso) {
-        setValue(name as Path<T>, iso as never);
-        setBsPreview(`${parsedYear}-${String(parsedMonth).padStart(2, "0")}-${String(parsedDay).padStart(2, "0")}`);
-      }
+  function syncAdFromBs(yearValue: string, month: number, day: number) {
+    const iso = bsToAdIso(Number(yearValue), month, day);
+    if (!iso) {
+      setValue(name, "" as never, { shouldDirty: true, shouldValidate: true });
+      setBsValidationError("Enter a valid BS date.");
+      return;
     }
-  }, [bsYear, bsMonth, bsDay, name, setValue]);
+
+    setValue(name, iso as never, { shouldDirty: true, shouldValidate: true });
+    setBsValidationError("");
+  }
+
+  const dateField = register(name);
+  const currentBsDate = adToBs(value);
 
   return (
     <div className="space-y-2">
@@ -65,7 +73,11 @@ export default function BsDatePicker<T extends FieldValues>({
         <span className="text-sm font-medium text-slate-200">{label}</span>
         <input
           type="date"
-          {...register(name)}
+          {...dateField}
+          onChange={(event) => {
+            dateField.onChange(event);
+            syncBsFromAd(event.target.value);
+          }}
           className="mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-emerald-400"
         />
       </label>
@@ -76,16 +88,26 @@ export default function BsDatePicker<T extends FieldValues>({
           <input
             type="number"
             value={bsYear}
-            onChange={(event) => setBsYear(event.target.value)}
+            onChange={(event) => {
+              const nextYear = event.target.value;
+              setBsYear(nextYear);
+              syncAdFromBs(nextYear, bsMonth, bsDay);
+            }}
             className="mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-emerald-400"
             placeholder="2054"
+            min={2000}
+            max={2090}
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-slate-200">BS Month</label>
           <select
             value={bsMonth}
-            onChange={(event) => setBsMonth(Number(event.target.value))}
+            onChange={(event) => {
+              const nextMonth = Number(event.target.value);
+              setBsMonth(nextMonth);
+              syncAdFromBs(bsYear, nextMonth, bsDay);
+            }}
             className="mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-emerald-400"
           >
             {bsMonthOptions.map((option) => (
@@ -100,19 +122,23 @@ export default function BsDatePicker<T extends FieldValues>({
           <input
             type="number"
             value={bsDay}
-            onChange={(event) => setBsDay(Number(event.target.value))}
+            onChange={(event) => {
+              const nextDay = Number(event.target.value);
+              setBsDay(nextDay);
+              syncAdFromBs(bsYear, bsMonth, nextDay);
+            }}
             className="mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-emerald-400"
             min={1}
-            max={32}
+            max={maxBsDay}
           />
         </div>
       </div>
 
       <div className="rounded-2xl border border-slate-700 bg-slate-950/80 p-3 text-sm text-slate-300">
         <p>AD: {value || "Not selected"}</p>
-        <p>BS: {bsPreview || "Not selected"}</p>
+        <p>BS: {currentBsDate?.formatted || "Not selected"}</p>
       </div>
-      {error ? <p className="mt-1 text-sm text-rose-400">{error}</p> : null}
+      {error || bsValidationError ? <p className="mt-1 text-sm text-rose-400">{error || bsValidationError}</p> : null}
     </div>
   );
 }

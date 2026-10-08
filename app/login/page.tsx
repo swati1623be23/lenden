@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast, { Toaster } from "react-hot-toast";
@@ -13,7 +12,6 @@ import type { LoginInput } from "@/lib/validators";
 import { parseJSONResponse } from "@/lib/fetch";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     register,
@@ -38,8 +36,7 @@ export default function LoginPage() {
       }
 
       toast.success("Logged in successfully.");
-      router.push("/dashboard");
-      router.refresh();
+      window.location.replace("/dashboard");
     } catch {
       toast.error("Unable to log in. Please try again.");
     } finally {

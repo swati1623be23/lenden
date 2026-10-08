@@ -19,13 +19,26 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "Invalid payment payload." }, { status: 400 });
     }
 
-    const payment = await prisma.payment.update({
-      where: { id },
+    const customer = await prisma.customer.findFirst({ where: { id: customerId, userId: auth.id } });
+    if (!customer) {
+      return NextResponse.json({ error: "Customer not found." }, { status: 404 });
+    }
+
+    const result = await prisma.payment.updateMany({
+      where: { id, customer: { is: { userId: auth.id } } },
       data: {
-        customerId,
+        customerId: customer.id,
         amount: Number(amount),
         createdAt: new Date(date),
       },
+    });
+
+    if (result.count === 0) {
+      return NextResponse.json({ error: "Payment not found." }, { status: 404 });
+    }
+
+    const payment = await prisma.payment.findFirst({
+      where: { id, customer: { is: { userId: auth.id } } },
       include: { customer: true },
     });
 
@@ -44,7 +57,10 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   console.log("DELETE /api/payments/[id]:", id);
 
   try {
-    await prisma.payment.delete({ where: { id } });
+    const result = await prisma.payment.deleteMany({ where: { id, customer: { is: { userId: auth.id } } } });
+    if (result.count === 0) {
+      return NextResponse.json({ error: "Payment not found." }, { status: 404 });
+    }
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("DELETE /api/payments/[id] error:", error);

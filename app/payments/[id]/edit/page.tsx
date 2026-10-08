@@ -3,9 +3,9 @@ import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import PaymentEditForm from "@/components/payments/PaymentEditForm";
 
-async function getPayment(id: string) {
-  return prisma.payment.findUnique({
-    where: { id },
+async function getPayment(id: string, userId: string) {
+  return prisma.payment.findFirst({
+    where: { id, customer: { is: { userId } } },
     include: { customer: true },
   });
 }
@@ -15,7 +15,7 @@ export default async function PaymentEditPage({ params }: { params: Promise<{ id
   const { id } = await params;
   console.log("Loading payment edit page:", id);
 
-  const payment = await getPayment(id);
+  const payment = await getPayment(id, user.id);
 
   if (!payment) {
     return (

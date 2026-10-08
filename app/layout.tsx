@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { OfflineStatusBanner } from "../components/pwa/OfflineStatusBanner";
 import { PwaRegister } from "../components/pwa/PwaRegister";
+import { LandingThemeProvider } from "../components/landing/LandingThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +34,12 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} lang="en">
-      <body className="min-h-full bg-slate-50 text-slate-950">
-        {children}
-        <PwaRegister />
-        <OfflineStatusBanner />
+      <body className="min-h-full">
+        <LandingThemeProvider>
+          {children}
+          <PwaRegister />
+          <OfflineStatusBanner />
+        </LandingThemeProvider>
       </body>
     </html>
   );

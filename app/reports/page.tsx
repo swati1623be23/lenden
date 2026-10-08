@@ -12,7 +12,7 @@ export default async function ReportsPage({
   const user = await requireUser();
   const params = await searchParams;
   const dateFilter = parseReportsDateFilter(params ?? {});
-  const data = await getReportData(dateFilter.range);
+  const data = await getReportData(user.id, dateFilter.range);
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">

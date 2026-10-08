@@ -1,6 +1,6 @@
-const CACHE_NAME = "lenden-offline-v1";
-const SHELL_URLS = [
-  "/",
+const CACHE_NAME = "lenden-offline-v2";
+const SHELL_URLS = ["/"];
+const PRIVATE_PATHS = [
   "/dashboard",
   "/customers",
   "/credits",
@@ -38,6 +38,14 @@ self.addEventListener("fetch", (event) => {
   }
 
   if (request.mode === "navigate") {
+    const isPrivatePage = PRIVATE_PATHS.some(
+      (path) => url.pathname === path || url.pathname.startsWith(`${path}/`)
+    );
+    if (isPrivatePage) {
+      event.respondWith(fetch(request, { cache: "no-store" }));
+      return;
+    }
+
     event.respondWith(
       fetch(request)
         .then((response) => {

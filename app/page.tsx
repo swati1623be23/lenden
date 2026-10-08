@@ -12,7 +12,7 @@ import { Footer } from "../components/landing/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
+    <div className="min-h-screen bg-[#f6f8f5] text-[#18231f] font-sans selection:bg-emerald-500/20 selection:text-emerald-950">
       <Navbar />
       <main>
         <Hero />

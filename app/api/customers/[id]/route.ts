@@ -19,10 +19,16 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "Customer name is required." }, { status: 400 });
     }
 
-    const customer = await prisma.customer.update({
-      where: { id },
+    const result = await prisma.customer.updateMany({
+      where: { id, userId: auth.id },
       data: { name: name.trim(), phone: phone?.trim() || null, address: address?.trim() || null },
     });
+
+    if (result.count === 0) {
+      return NextResponse.json({ error: "Customer not found." }, { status: 404 });
+    }
+
+    const customer = await prisma.customer.findFirst({ where: { id, userId: auth.id } });
 
     return NextResponse.json({ customer });
   } catch (error) {
@@ -39,11 +45,15 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   console.log("DELETE /api/customers/[id]:", id);
 
   try {
-    await prisma.$transaction([
-      prisma.payment.deleteMany({ where: { customerId: id } }),
-      prisma.credit.deleteMany({ where: { customerId: id } }),
-      prisma.customer.delete({ where: { id } }),
+    const [, , deleted] = await prisma.$transaction([
+      prisma.payment.deleteMany({ where: { customerId: id, customer: { is: { userId: auth.id } } } }),
+      prisma.credit.deleteMany({ where: { customerId: id, customer: { is: { userId: auth.id } } } }),
+      prisma.customer.deleteMany({ where: { id, userId: auth.id } }),
     ]);
+
+    if (deleted.count === 0) {
+      return NextResponse.json({ error: "Customer not found." }, { status: 404 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

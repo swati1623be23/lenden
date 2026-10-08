@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import type { z } from "zod";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { creditSchema } from "@/lib/validators";
@@ -9,6 +10,8 @@ import BsDatePicker from "@/components/ui/BsDatePicker";
 import type { CreditInput } from "@/lib/validators";
 import type { Customer } from "@prisma/client";
 import toast, { Toaster } from "react-hot-toast";
+
+type CreditFormInput = z.input<typeof creditSchema>;
 
 export type CreditEditData = {
   id: string;
@@ -34,7 +37,7 @@ export default function CreditEditForm({ credit }: CreditEditFormProps) {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreditInput>({
+  } = useForm<CreditFormInput, undefined, CreditInput>({
     resolver: zodResolver(creditSchema),
     defaultValues: {
       customerId: credit.customerId,

@@ -3,8 +3,9 @@ import { requireUser } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import CreditList, { type CreditListItem } from "@/components/credits/CreditList";
 
-async function getCredits(): Promise<CreditListItem[]> {
+async function getCredits(userId: string): Promise<CreditListItem[]> {
   const credits = await prisma.credit.findMany({
+    where: { customer: { is: { userId } } },
     orderBy: { createdAt: "desc" },
     include: { customer: { select: { id: true, name: true } } },
   });
@@ -21,7 +22,7 @@ async function getCredits(): Promise<CreditListItem[]> {
 
 export default async function CreditsPage() {
   const user = await requireUser();
-  const credits = await getCredits();
+  const credits = await getCredits(user.id);
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">
